@@ -17,42 +17,42 @@ class Quiz:
                 "correct_answer": 1,
                 "tip": "Long passphrases with uppercase, lowercase, numbers and symbols are hardest to crack."
             },
-            {
-                "question": "What should you do if you receive a suspicious email?",
-                "options": ["Click all links to check", "Reply and ask for more info", "Delete it immediately", "Forward to all friends"],
-                "correct_answer": 2,
-                "tip": "Never click links or download attachments from suspicious emails. Delete them immediately."
-            },
-            {
-                "question": "What is two-factor authentication (2FA)?",
-                "options": ["Using two passwords", "An extra layer of security requiring two verification methods", "Having two email accounts", "A type of virus"],
-                "correct_answer": 1,
-                "tip": "2FA adds an extra security layer by requiring something you know (password) and something you have (phone)."
-            },
-            {
-                "question": "Which is the safest practice for public Wi-Fi?",
-                "options": ["Do online banking", "Use VPN", "Share personal information", "Disable firewall"],
-                "correct_answer": 1,
-                "tip": "Always use a VPN on public Wi-Fi to encrypt your connection and protect your data."
-            },
-            {
-                "question": "How often should you update your software?",
-                "options": ["Never", "Only when forced", "Immediately when updates are available", "Once a year"],
-                "correct_answer": 2,
-                "tip": "Regular updates patch security vulnerabilities that hackers could exploit."
-            },
-            {
-                "question": "What is phishing?",
-                "options": ["A fishing hobby", "A type of malware", "Fraudulent attempt to get sensitive information", "A password manager"],
-                "correct_answer": 2,
-                "tip": "Phishing uses fake emails/websites to trick you into revealing passwords, credit card numbers, etc."
-            },
-            {
-                "question": "Why should you use different passwords for different accounts?",
-                "options": ["It's too hard to remember", "To prevent credential stuffing attacks", "No particular reason", "To confuse hackers"],
-                "correct_answer": 1,
-                "tip": "If one account is compromised, different passwords prevent hackers from accessing all your accounts."
-            }
+            # {
+            #     "question": "What should you do if you receive a suspicious email?",
+            #     "options": ["Click all links to check", "Reply and ask for more info", "Delete it immediately", "Forward to all friends"],
+            #     "correct_answer": 2,
+            #     "tip": "Never click links or download attachments from suspicious emails. Delete them immediately."
+            # },
+            # {
+            #     "question": "What is two-factor authentication (2FA)?",
+            #     "options": ["Using two passwords", "An extra layer of security requiring two verification methods", "Having two email accounts", "A type of virus"],
+            #     "correct_answer": 1,
+            #     "tip": "2FA adds an extra security layer by requiring something you know (password) and something you have (phone)."
+            # },
+            # {
+            #     "question": "Which is the safest practice for public Wi-Fi?",
+            #     "options": ["Do online banking", "Use VPN", "Share personal information", "Disable firewall"],
+            #     "correct_answer": 1,
+            #     "tip": "Always use a VPN on public Wi-Fi to encrypt your connection and protect your data."
+            # },
+            # {
+            #     "question": "How often should you update your software?",
+            #     "options": ["Never", "Only when forced", "Immediately when updates are available", "Once a year"],
+            #     "correct_answer": 2,
+            #     "tip": "Regular updates patch security vulnerabilities that hackers could exploit."
+            # },
+            # {
+            #     "question": "What is phishing?",
+            #     "options": ["A fishing hobby", "A type of malware", "Fraudulent attempt to get sensitive information", "A password manager"],
+            #     "correct_answer": 2,
+            #     "tip": "Phishing uses fake emails/websites to trick you into revealing passwords, credit card numbers, etc."
+            # },
+            # {
+            #     "question": "Why should you use different passwords for different accounts?",
+            #     "options": ["It's too hard to remember", "To prevent credential stuffing attacks", "No particular reason", "To confuse hackers"],
+            #     "correct_answer": 1,
+            #     "tip": "If one account is compromised, different passwords prevent hackers from accessing all your accounts."
+            # }
         ]
 
         self.current_question = 0
@@ -113,10 +113,10 @@ class Quiz:
             'bg_secondary': '#879E9D',
             'bg_tertiary': '#0f3460',
             'accent': '#e94560',
-            'success': '#2ecc71',
+            'success': "#007848",
             'warning': '#f39c12',
-            'danger': '#e74c3c',
-            'info': '#3498db',
+            'danger': "#820000",
+            'info': '#192bc2',
             'text_primary': '#000000',
             'text_secondary': '#bdc3c7'
         }
@@ -124,19 +124,19 @@ class Quiz:
 
         self.root.configure(bg=self.colors['bg_primary'])
         self.main_frame = tk.Frame(self.root, bg=self.colors['bg_primary'])
-        self.main_frame.pack(fill='both', expand=True, padx=25, pady=25)
+        self.main_frame.pack(padx=15, pady=15, anchor='center')
 
         self.header()
 
-        self.main_question_canvas = tk.Canvas(self.main_frame, bg=self.colors['bg_primary'], highlightthickness=0)
-        self.main_question_canvas.pack(fill='both', expand=True, padx=15, pady=15)
+        self.main_question_canvas = tk.Canvas(self.main_frame,bg=self.colors['bg_primary'], highlightthickness=0)
+        self.main_question_canvas.pack( padx=15, pady=15, anchor='center')
        
-        self.rounded_window(self.main_question_canvas, 10, 10, 650, 500, radius=20, fill=self.colors['danger'])
+        self.rounded_window(self.main_question_canvas, 0, 0, 600, 305, radius=20, fill=self.colors['bg_secondary'])
 
 
         self.question()
 
-        self.options_frame= tk.Frame(self.main_question_canvas, bg=self.colors['text_primary'])
+        self.options_frame= tk.Frame(self.main_question_canvas, bg=self.colors['bg_secondary'])
         self.options_frame.pack(fill='x', pady=15, padx=25)
 
         
@@ -160,19 +160,19 @@ class Quiz:
 
     def progress(self):
         progress_frame = tk.Frame(self.main_question_canvas, bg=self.colors['bg_secondary'])
-        progress_frame.pack(fill='x', pady=10, padx=25)
+        progress_frame.pack(fill='x', pady=10, padx=15)
         
         #label
-        self.progress_label = tk.Label(progress_frame, text="", font=('Arial', 11, 'bold'), fg=self.colors['text_secondary'], bg=self.colors['bg_secondary'])
+        self.progress_label = tk.Label(progress_frame, text="", font=('Arial', 11, 'bold'), fg=self.colors['text_primary'], bg=self.colors['bg_secondary'])
         self.progress_label.pack()
         
-        #bar
-        self.progress_bar = ttk.Progressbar(progress_frame, orient='horizontal', length=400, mode='determinate')
-        self.progress_bar.pack(pady=5)
+        # #bar
+        # self.progress_bar = ttk.Progressbar(progress_frame, orient='horizontal', length=400, mode='determinate')
+        # self.progress_bar.pack(pady=5)
 
     def question(self):
-        self.question_canvas = tk.Canvas(self.main_question_canvas, bg=self.colors['bg_secondary'], height=70, highlightthickness=0)
-        self.question_canvas.pack(fill='x', padx=25, pady=15)
+        self.question_canvas = tk.Canvas(self.main_question_canvas, bg=self.colors['bg_secondary'], width=550, height=50, highlightthickness=0)
+        self.question_canvas.pack(side='top', padx=0, pady=20, anchor='center')
         
         
         #label
@@ -206,17 +206,17 @@ class Quiz:
         option_frame = tk.Frame(self.options_frame, bg=self.colors['text_primary'])
         option_frame.pack(fill='x', pady=4, padx=25)
         
-        canvas = tk.Canvas(option_frame, width=500, height=40, bg=self.colors['bg_secondary'], highlightthickness=0)
+        canvas = tk.Canvas(option_frame, width=500, height=30, bg=self.colors['bg_secondary'], highlightthickness=0)
         canvas.pack()
         
         #background
-        bg_id = self.rounded_window(canvas, 5, 5, 495, 35, radius=12,  fill=self.colors['bg_secondary'], outline=self.colors['text_secondary'])
+        bg_id = self.rounded_window(canvas, 0, 0, 495, 30, radius=12,  fill=self.colors['bg_secondary'])
         
         #radio
-        radio_id = canvas.create_oval(20, 15, 30, 25, fill=self.colors['bg_secondary'], outline=self.colors['text_secondary'], width=2)
+        radio_id = canvas.create_oval(12, 12, 20, 20, fill=self.colors['bg_secondary'], outline=self.colors['text_secondary'], width=2)
         
         #text
-        text_id = canvas.create_text(50, 20, text=text, anchor='w', fill=self.colors['text_primary'], font=('Arial', 10))
+        text_id = canvas.create_text(50, 15, text=text, anchor='w', fill=self.colors['text_primary'], font=('Arial', 12))
         
         def on_click(e):
             var.set(value)
@@ -265,7 +265,7 @@ class Quiz:
         #update progress
         progress = (self.current_question / len(self.questions)) * 100
         self.progress_label.config(text=f"Question {self.current_question + 1} of {len(self.questions)}")
-        self.progress_bar['value'] = progress
+        #self.progress_bar['value'] = progress
         
         #show current question
         question_data = self.questions[self.current_question]
@@ -322,14 +322,14 @@ class Quiz:
             widget.destroy()
         
         #results container
-        results_canvas = tk.Canvas(self.main_frame, bg=self.colors['bg_primary'], height=500, highlightthickness=0)
-        results_canvas.pack(fill='both', expand=True)
+        results_canvas = tk.Canvas(self.main_frame, bg=self.colors['bg_primary'], width=700, height=700, highlightthickness=0)
+        results_canvas.pack(anchor='center', expand=True)
         
         #main results
-        self.rounded_window(results_canvas, 25, 20, 525, 180, radius=25,fill=self.colors['bg_tertiary'], outline=self.colors['info'])
+        self.rounded_window(results_canvas, 25, 20, 640, 140, radius=25,fill=self.colors['bg_tertiary'], outline=self.colors['info'])
         
         #results title
-        results_canvas.create_text(275, 50, text="🎉 Quiz Completed!", fill=self.colors['text_primary'], font=('Arial', 20, 'bold'))
+        results_canvas.create_text(275, 50, text="quiz completed!", fill=self.colors['text_primary'], font=('Arial', 20, 'bold'))
         
         #score display
         score_text = f"Final Score: {self.score}/{len(self.questions)}"
@@ -369,7 +369,7 @@ class Quiz:
         
         #container
         tips_frame = tk.Frame(parent_canvas, bg=self.colors['bg_primary'])
-        parent_canvas.create_window(275, 320, window=tips_frame, width=500, height=250)
+        parent_canvas.create_window(345, 350, window=tips_frame, width=650, height=400)
         
         #scrollable canvas
         canvas = tk.Canvas(tips_frame, bg=self.colors['bg_primary'], highlightthickness=0)
@@ -383,22 +383,22 @@ class Quiz:
         #tips
         y_offset = 10
         for i, wrong in enumerate(self.wrong_answers):
-            tip_canvas = tk.Canvas(scrollable_frame, width=460, height=100, bg=self.colors['bg_primary'], highlightthickness=0)
+            tip_canvas = tk.Canvas(scrollable_frame, width=650, height=140, bg=self.colors['bg_primary'], highlightthickness=0)
             tip_canvas.pack(pady=5)
             
             #card
-            self.rounded_window(tip_canvas, 5, 5, 455, 95, radius=15, fill=self.colors['bg_secondary'], outline=self.colors['warning'])
+            self.rounded_window(tip_canvas, 5, 5, 620, 135, radius=15, fill=self.colors['bg_secondary'],)
             
             #question
-            tip_canvas.create_text(15, 20, text=f"Q: {wrong['question']}", anchor='w', fill=self.colors['text_primary'], font=('Arial', 9, 'bold'), width=430)
+            tip_canvas.create_text(15, 20, text=f"Q: {wrong['question']}", anchor='w', fill=self.colors['text_primary'], font=('Arial', 12, 'bold'), width=430)
             
             #answers
-            tip_canvas.create_text(15, 45, text=f"Your answer: {wrong['user_answer']}", anchor='w', fill=self.colors['danger'], font=('Arial', 8), width=430)
+            tip_canvas.create_text(15, 50, text=f"Your answer: {wrong['user_answer']}", anchor='w', fill=self.colors['danger'], font=('Arial', 12), width=430)
             
-            tip_canvas.create_text(15, 60, text=f"Correct: {wrong['correct_answer']}", anchor='w', fill=self.colors['success'], font=('Arial', 8), width=430)
+            tip_canvas.create_text(15, 75, text=f"Correct: {wrong['correct_answer']}", anchor='w', fill=self.colors['success'], font=('Arial', 12), width=430)
             
             #tip
-            tip_canvas.create_text(15, 80, text=f"{wrong['tip']}", anchor='w', fill=self.colors['info'], font=('Arial', 8, 'italic'), width=430)
+            tip_canvas.create_text(15, 110, text=f"{wrong['tip']}", anchor='w', fill=self.colors['text_primary'], font=('Arial', 12, 'italic'), width=430)
         
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
@@ -410,9 +410,11 @@ class Quiz:
         
         for widget in self.main_frame.winfo_children():
             widget.destroy()
-        
+
+        self.setup_quiz()
         self.setup_ui()
         self.show_question()
+
     
     def quit_quiz(self):
         if messagebox.askyesno("Quit", "Are you sure you want to quit the quiz?"):
@@ -423,7 +425,7 @@ class Quiz:
 def main():
     window = tk.Tk()
     window.title("cybersecurity quiz")
-    window.geometry("800x900")
+    window.geometry("700x630")
     window.configure(bg='#1a1a2e')
     window.resizable(False, False)
     
