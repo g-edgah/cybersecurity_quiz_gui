@@ -109,14 +109,13 @@ class Quiz:
     def setup_ui(self):
 
         self.colors = {
-            'bg_primary': '#ecf0f1',
-            'bg_secondary': '#879E9D',
-            'bg_tertiary': '#0f3460',
-            'accent': '#e94560',
-            'success': "#007848",
-            'warning': '#f39c12',
-            'danger': "#820000",
-            'info': '#192bc2',
+            'bg_primary': '#DBE2E9',
+            'bg_secondary': '#C3CAD2',
+            'green': "#007848",
+            'yellow': '#f39c12',
+            'red': "#820000",
+            'selected': '#727F91',
+            'blue': '#192bc2',
             'text_primary': '#000000',
             'text_secondary': '#bdc3c7'
         }
@@ -181,14 +180,14 @@ class Quiz:
 
     def buttons(self):
         control_frame = tk.Frame(self.main_frame, bg=self.colors['bg_primary'])
-        control_frame.pack(fill='x', pady=20)
+        control_frame.pack(fill='x', padx=15, pady=20)
         
         #submit
-        self.submit_btn = self.rounded_button(control_frame, "submit answer", self.check_answer, self.colors['success'], hover_color=self.adjust_color(self.colors['success'], 30), width=140, height=45)
+        self.submit_btn = self.rounded_button(control_frame, "submit answer", self.check_answer, self.colors['green'], hover_color=self.adjust_color(self.colors['green'], 30), width=140, height=45)
         self.submit_btn.pack(side='left', padx=20)
         
         #quit
-        self.quit_btn = self.rounded_button(control_frame, "quit quiz", self.quit_quiz, self.colors['danger'], hover_color=self.adjust_color(self.colors['danger'], 30), width=120, height=45)
+        self.quit_btn = self.rounded_button(control_frame, "quit quiz", self.quit_quiz, self.colors['red'], hover_color=self.adjust_color(self.colors['red'], 30), width=120, height=45)
         self.quit_btn.pack(side='right', padx=20)
 
     def setup_score(self):
@@ -233,11 +232,11 @@ class Quiz:
         
         def update_appearance(selected):
             if selected:
-                canvas.itemconfig(bg_id, fill=self.colors['info'])
+                canvas.itemconfig(bg_id, fill=self.colors['selected'])
                 canvas.itemconfig(radio_id, fill=self.colors['text_primary'], outline=self.colors['text_primary'])
             else:
                 canvas.itemconfig(bg_id, fill=self.colors['bg_secondary'])
-                canvas.itemconfig(radio_id, fill=self.colors['bg_secondary'], outline=self.colors['text_secondary'])
+                canvas.itemconfig(radio_id, fill=self.colors['bg_secondary'], outline=self.colors['selected'])
         
         #events binding
         canvas.bind("<Button-1>", on_click)
@@ -291,9 +290,9 @@ class Quiz:
         #feedback
         for i, widget in enumerate(self.option_widgets):
             if i == question_data["correct_answer"]:
-                widget.itemconfig(widget.bg_id, fill=self.colors['success'])
+                widget.itemconfig(widget.bg_id, fill=self.colors['green'])
             elif i == selected_option and i != question_data["correct_answer"]:
-                widget.itemconfig(widget.bg_id, fill=self.colors['danger'])
+                widget.itemconfig(widget.bg_id, fill=self.colors['red'])
             widget.update_appearance()
         
         self.root.after(1000, self.process_answer, selected_option, question_data)
@@ -333,13 +332,13 @@ class Quiz:
         percentage = (self.score / len(self.questions)) * 100
         if percentage >= 80:
             performance = "excellent! you know your stuff."
-            color = self.colors['success']
+            color = self.colors['green']
         elif percentage >= 60:
             performance = "good job! you have a solid grasp of things."
-            color = self.colors['warning']
+            color = self.colors['yellow']
         else:
             performance = "keep learning! we all have to start somewhere."
-            color = self.colors['danger']
+            color = self.colors['red']
         
         results_canvas.create_text(320, 95, text=performance, fill=color, font=('Arial', 12, 'bold'))
         
@@ -351,10 +350,10 @@ class Quiz:
         button_frame = tk.Frame(results_canvas, bg=self.colors['bg_primary'])
         results_canvas.create_window(335, 579, window=button_frame, width=640)
         
-        restart_btn = self.rounded_button(button_frame, "restart quiz", self.restart_quiz, self.colors['info'], hover_color=self.adjust_color(self.colors['info'], 30), width=140, height=45)
+        restart_btn = self.rounded_button(button_frame, "restart quiz", self.restart_quiz, self.colors['blue'], hover_color=self.adjust_color(self.colors['blue'], 30), width=140, height=45)
         restart_btn.pack(side='left', padx=10)
         
-        quit_btn = self.rounded_button(button_frame, "quit", self.quit_quiz, self.colors['danger'], hover_color=self.adjust_color(self.colors['danger'], 30),  width=100, height=45)
+        quit_btn = self.rounded_button(button_frame, "quit", self.quit_quiz, self.colors['red'], hover_color=self.adjust_color(self.colors['red'], 30),  width=100, height=45)
         quit_btn.pack(side='right', padx=10)
     
     def tips_section(self, parent_canvas):
@@ -387,9 +386,9 @@ class Quiz:
             tip_canvas.create_text(15, 25, text=f"Q: {wrong['question']}", anchor='w', fill=self.colors['text_primary'], font=('Arial', 12, 'bold'), width=600)
             
             #answers
-            tip_canvas.create_text(15, 50, text=f"your answer: {wrong['user_answer']}", anchor='w', fill=self.colors['danger'], font=('Arial', 12), width=600)
+            tip_canvas.create_text(15, 50, text=f"your answer: {wrong['user_answer']}", anchor='w', fill=self.colors['red'], font=('Arial', 12), width=600)
             
-            tip_canvas.create_text(15, 75, text=f"correct: {wrong['correct_answer']}", anchor='w', fill=self.colors['success'], font=('Arial', 12), width=600)
+            tip_canvas.create_text(15, 75, text=f"correct: {wrong['correct_answer']}", anchor='w', fill=self.colors['green'], font=('Arial', 12), width=600)
             
             #tip
             tip_canvas.create_text(15, 110, text=f"{wrong['tip']}", anchor='w', fill=self.colors['text_primary'], font=('Arial', 12, 'italic'), width=600)
