@@ -404,19 +404,21 @@ class Quiz:
         
         #recreate main_frame
         self.main_frame.destroy()
-        self.main_frame = tk.Frame(self.root, bg=self.colors['bg_primary'])
-        self.main_frame.pack(padx=15, pady=15, anchor='n')
+        # self.main_frame = tk.Frame(self.root, bg=self.colors['text_primary'])
+        # self.main_frame.pack(padx=15, pady=15, anchor='n')
         
         #reinitialize ui
         self.setup_ui()
         self.show_question()
+
+        # self.root.destroy()
+        #main()
 
         
     def quit_quiz(self):
             if messagebox.askyesno("Quit", "Are you sure you want to quit the quiz?"):
                 self.root.destroy()
 
-    
 
 
 def main():
@@ -429,7 +431,7 @@ def main():
     #centering
     window.eval('tk::PlaceWindow . center')
     
-    game = Quiz(window)
+    Quiz(window)
     window.mainloop()
 
 
